@@ -23,3 +23,17 @@ https://github.com/bitcraft/pyscroll/blob/master/apps/tutorial/quest.py
 tasdikrahman for some Pygame boilerplate:
 
 https://github.com/tasdikrahman/pygame-boilerplate/blob/master/template.py
+
+Also Jan Jilicek for some Game object boilerplate:
+
+https://github.com/janjilecek/pygame-invaders
+
+Game images:
+
+Title Screen Pokemon logo downloaded from Wikipedia:
+
+https://en.wikipedia.org/wiki/Pok%C3%A9mon#/media/File:International_Pok%C3%A9mon_logo.svg
+
+Title Screen Pokemon Team downloaded from Bulbapedia:
+
+https://archives.bulbagarden.net/media/upload/7/77/PMD_Exploration_Team_artwork.png?download
