@@ -14,6 +14,7 @@ class Game:
         self.large_font = pygame.font.SysFont("cascadia", 48)
         self.medium_font = pygame.font.SysFont("cascadia", 32)
         self.small_font = pygame.font.SysFont("cascadia", 24)
+        self.DEFAULT_IMAGE_SIZE = (150, 150)
 
         # define colors
         self.black = (0, 0, 0)
@@ -56,21 +57,69 @@ class Game:
             self.clock.tick(60)
 
     def starterPokemonSelectionScreen(self):
-        for i in range(0, 9):
+        self.x = 0
+        self.y = 0
+
+        self.pokemon_selection_text = self.large_font.render(
+            "Select Three Starter Pokemon", True, self.red
+        )
+        self.screen.blit(
+            self.pokemon_selection_text,
+            (
+                (self.width / 2) - (self.pokemon_selection_text.get_width() / 2),
+                (self.height / 2) - (self.pokemon_selection_text.get_height() / 2) - 25,
+            ),
+        )
+
+        self.starter_name_positions = [
+            (125, 250),
+            (300, 250),
+            (475, 250),
+            (625, 250),
+            (775, 250),
+            (125, 550),
+            (300, 550),
+            (475, 550),
+            (625, 550),
+            (775, 550),
+        ]
+        self.starter_sprite_positions = [
+            (100, 75),
+            (275, 75),
+            (450, 75),
+            (600, 75),
+            (750, 75),
+            (100, 375),
+            (275, 375),
+            (450, 375),
+            (600, 375),
+            (750, 375),
+        ]
+        for i in range(0, 10):
             self.starter_pokemon.append(Pokemon(int(self.starter_pokemon_list[i])))
 
-        for poke in self.starter_pokemon:
-            self.starter_pokemon_name = poke.name
-            self.pokeText1 = self.large_font.render(
+            self.starter_pokemon_name = self.starter_pokemon[i].name
+            self.pokeText1 = self.small_font.render(
                 self.starter_pokemon_name, True, self.black
             )
-
-            # Need to space out the names properly & change font
+            self.sprite_image = pygame.image.load(
+                self.starter_pokemon[i].official_artwork_front_default_sprite_file_name
+            )
+            self.sprite_image = pygame.transform.scale(
+                self.sprite_image, self.DEFAULT_IMAGE_SIZE
+            )
+            self.screen.blit(
+                self.sprite_image,
+                (
+                    self.starter_sprite_positions[i][0],
+                    self.starter_sprite_positions[i][1],
+                ),
+            )
             self.screen.blit(
                 self.pokeText1,
                 (
-                    (self.width / 2) - (self.pokeText1.get_width() / 2),
-                    (self.height / 2) - (self.pokeText1.get_height() / 2) + 225,
+                    self.starter_name_positions[i][0],
+                    self.starter_name_positions[i][1],
                 ),
             )
 
