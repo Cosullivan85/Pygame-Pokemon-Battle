@@ -27,6 +27,7 @@ class Game:
         # starter Pokemon list for selection screen:
         self.starter_pokemon_list = [1, 4, 7, 10, 16, 21, 25, 37, 41, 54]
         self.starter_pokemon = []
+        self.clicked_sprites = set([])
 
         # initial Game status
         self.game_status = "intro"
@@ -38,10 +39,29 @@ class Game:
                 if event.type == pygame.QUIT:
                     self.game_status = "quit"
 
-                # detect keypress
+                # detect keypress at intro screen
                 if event.type == pygame.KEYDOWN:
                     if self.game_status == "intro":
                         self.game_status = "select_pokemon"
+
+                # detect which Pokemon is selected on selection screen
+                if event.type == pygame.MOUSEBUTTONDOWN:
+                    if self.game_status == "select_pokemon":
+                        self.mouse_x, self.mouse_y = event.pos
+
+                        #     rect.collidepoint(self.mouse_x, self.mouse_y)
+                        #     for rect in self.sprite_image_list
+                        # ]
+                        for rect in self.sprite_image_list:
+                            if rect.collidepoint(self.mouse_x, self.mouse_y):
+                                self.clicked_sprites.add(
+                                    self.sprite_image_list.index(rect)
+                                )
+                        if len(self.clicked_sprites) >= 3:
+                            self.clicked_sprites = list(self.clicked_sprites)
+                            self.game_status = "pokemon_selected"
+                            print(self.clicked_sprites)
+                            print(self.game_status)
 
             # 2 Draw/render
             if self.game_status == "intro":
@@ -95,6 +115,8 @@ class Game:
             (600, 375),
             (750, 375),
         ]
+        self.sprite_image_list = []
+
         for i in range(0, 10):
             self.starter_pokemon.append(Pokemon(int(self.starter_pokemon_list[i])))
 
@@ -108,12 +130,16 @@ class Game:
             self.sprite_image = pygame.transform.scale(
                 self.sprite_image, self.DEFAULT_IMAGE_SIZE
             )
-            self.screen.blit(
-                self.sprite_image,
-                (
-                    self.starter_sprite_positions[i][0],
-                    self.starter_sprite_positions[i][1],
-                ),
+            self.sprite_image_list.extend(
+                [
+                    self.screen.blit(
+                        self.sprite_image,
+                        (
+                            self.starter_sprite_positions[i][0],
+                            self.starter_sprite_positions[i][1],
+                        ),
+                    )
+                ]
             )
             self.screen.blit(
                 self.pokeText1,
